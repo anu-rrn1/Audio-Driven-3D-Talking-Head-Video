@@ -1,7 +1,6 @@
-# TinyPointTalk
+# Audio-Driven-3D-Talking-Head-Video
 
-Audio-driven 3D talking heads at laptop scale, inspired by PointTalk [1]. Given a 3D face mesh of
-a person, a few photos of them and a speech recording, the system produces a video of a
+Given a 3D face mesh of a person, a few photos of them and a speech recording, the system produces a video of a
 relightable 3D Gaussian head that speaks the audio.
 
 The system is a FLAME-based pipeline.
