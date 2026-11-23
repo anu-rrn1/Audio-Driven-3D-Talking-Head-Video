@@ -32,7 +32,7 @@ tinypt/                    library
   visualization.py, subtitles.py, metrics.py, io_utils.py, config.py
 scripts/flame_pipeline/    steps 01-07 of the pipeline
 configs/default.yaml       all hyper-parameters
-notebooks/                 GPU training of step 4b (Colab: v1, Kaggle: v2; steps 04c and 07 use v1)
+notebooks/                 Kaggle GPU training of step 4b (v1, v2; steps 04c and 07 use v1)
 tests/test_geometry.py     unit checks of the geometry and FLAME code
 outputs/                   results of every step (figures, metrics, videos)
 data/                      inputs and intermediate files
@@ -71,6 +71,24 @@ python run_pipeline.py --from 05               # resume from step 05
 Single steps run as scripts, e.g. `python scripts/flame_pipeline/07_generate_video.py --wav speech.wav`.
 To use real inputs, pass your own mesh to step 02 (`--mesh face.obj`) and a photo folder to
 step 05 (`--photos <folder>`). Step 4b is best trained on a GPU with one of the notebooks.
+
+## Evaluation
+
+This project was built on a CPU-only laptop; only the Audio2Motion training of step 4b
+was run on a free Kaggle GPU. The current version is a working
+starting point, and I am trying to improve it step by step against the evaluation parameters below.
+
+Evaluation uses the synthetic identity of step 01 and the unseen VOCASET test speakers.
+Each step writes its figures and metrics to `outputs/`.
+
+| Step | Evaluation parameters | Compared against |
+|---|---|---|
+| 02-03 Geometry | Face count and boundary loops after mouth refinement; mean vertex error of the mouth rebuilt from the lip point cloud | Jaw rig alone |
+| 4a Motion representation | Mean worst-lip-vertex error on the test speakers | No motion; FLAME with 100 expression parameters |
+| 4b-4c Audio to motion | Lip vertex error (LVE); jaw-mode correlation; lip-gap variation relative to the recording | Zero motion; mean pose |
+| 05 Photo fitting | Landmark error (px and % of inter-ocular distance); head rotation error; lip-motion error; leave-one-photo-out PSNR | Neutral mouth; baked colour average |
+| 06 Gaussian avatar | PSNR and SSIM on the held-out photo | Textured mesh under the same protocol |
+| 07 Generation | LVE and lip-gap correlation with the recording on test-speaker sentences | Mean pose |
 
 ## Results
 
