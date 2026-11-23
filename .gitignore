@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+.ruff_cache/
+
+# Licensed or large data (see README for how to obtain it)
+data/flame/
+data/identity/
+data/vocaset/
+data/vocaset_motion/
+
+# Caches
+outputs/**/features_*.npz

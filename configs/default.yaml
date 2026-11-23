@@ -1,0 +1,28 @@
+device: auto                    # auto | cpu | cuda
+
+# FLAME pipeline (scripts/flame_pipeline)
+flame:
+  dir: data/flame               # generic_model.pkl (+ optional FLAME_masks.pkl)
+  n_shape: 100
+  n_expr: 50
+
+identity:
+  mesh: data/identity/face.obj  # identity mesh, any topology (OBJ; PLY/STL need trimesh)
+  landmarks: null               # optional [L, 3] landmarks on the mesh (txt/npy)
+  offset_smooth_iters: 5        # Taubin smoothing of the offset field
+  registration:
+    stiffness: [50, 20, 8, 3, 1]
+    inner: 4
+    min_cos: 0.5
+
+mouth:
+  ring_hops: 4                  # lip region grown by this many edge hops
+  refine: true                  # red-green refinement of the mouth region
+  cavity_depth: 0.6             # times the inner-lip width
+  teeth_depth: 0.12
+
+lip_cloud:
+  n_points: 512                 # points after farthest-point sampling
+  n_candidates: 4000            # dense surface samples before sampling
+  knn: 16
+  deform_w: 10.0                # handle weight of the Laplacian points -> mesh solve
